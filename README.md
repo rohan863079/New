@@ -59,3 +59,98 @@ Please do the following:
 10. Do not deploy or enable learner execution without successful verification and my approval.
 
 Provide a final report separating completed work from pending configuration.
+++++++++++
++++++++++
+
+Task: Configure and Verify Databricks Non-Admin Service Principal Integration
+
+I have added the new Non-Admin Databricks Service Principal credentials to my local backend ".env" file.
+
+New credentials:
+
+- DATABRICKS_HOST
+- DATABRICKS_CLIENT_ID
+- DATABRICKS_CLIENT_SECRET
+
+Please perform the following tasks carefully.
+
+1. Inspect Existing Backend Implementation
+
+- Inspect the existing Databricks integration code.
+- Identify which environment variable names the backend actually expects.
+- Check the OAuth authentication implementation.
+- Identify whether the application uses Databricks Jobs API, Databricks Connect, or another execution method.
+- Do not assume that the proposed environment variable names or API configuration are correct.
+
+2. Validate Environment Configuration
+
+- Verify that the backend can read the three environment variables.
+- Never print Client Secret, OAuth tokens, or other credentials in logs or terminal output.
+- Never expose credentials to frontend code.
+- Never commit ".env" to Git.
+- Check ".gitignore" and ".env.example".
+- Keep only placeholder values in ".env.example".
+
+3. Verify OAuth Authentication
+
+- Verify OAuth M2M authentication using the new Non-Admin Service Principal.
+- Check whether the configured OAuth scope is sufficient for the actual API calls.
+- Do not use the old Admin Service Principal credentials.
+- Do not request or use workspace Admin credentials.
+
+4. Verify Permissions
+
+Check whether the new Service Principal has the necessary permissions for:
+
+- Workspace access, if required.
+- Databricks Jobs execution.
+- Serverless compute execution, if supported.
+- Unity Catalog catalog and schema access.
+- Reading and writing to the existing Volume:
+  /Volumes/workspace/default/practice_files/
+
+Do not grant unnecessary permissions or Admin access.
+
+5. Preserve Existing Functionality
+
+- Keep the existing Local PySpark Runner working.
+- Do not break SQL Lab, Python Lab, or existing PySpark functionality.
+- Keep local and Databricks execution modes separate.
+- Do not expose native Databricks notebook links to learners who do not have workspace access.
+
+6. Security Requirements
+
+- Do not use the Admin Service Principal.
+- Do not enable Admin access for the new Principal.
+- Do not expose credentials or tokens.
+- Implement execution timeout, concurrency limits, safe error handling and log redaction.
+- Do not execute learner code with an Admin identity.
+
+7. Testing
+
+Perform safe configuration checks first.
+
+Then report:
+
+1. Environment variable configuration status.
+2. OAuth authentication status.
+3. Service Principal identity verification.
+4. Jobs API availability.
+5. Serverless compute compatibility with Databricks Free Edition.
+6. Unity Catalog permissions.
+7. Volume access status.
+8. Local PySpark Runner status.
+
+Do not claim that remote execution works unless a real test job successfully executes.
+
+8. Important Restrictions
+
+- Do not deploy to production.
+- Do not modify Render production environment variables.
+- Do not enable remote execution automatically.
+- Keep DATABRICKS_ENABLED or equivalent readiness flags disabled until all required security and live execution tests pass.
+- Do not delete or modify existing Admin Service Principal credentials.
+
+At the end, provide a detailed report of completed checks, failures, missing permissions, and the exact next steps.
+
+Do not make assumptions about Databricks Free Edition capabilities. Verify compatibility before implementing remote execution.
