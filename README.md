@@ -39,3 +39,23 @@ Do not use workspace admin credentials for learner code execution.
 Do not deploy to production or modify existing production environment variables without my explicit approval.
 
 At the end, provide a clear report showing which tests passed, failed, or remain blocked.
+
+
+
+---------
+Understood. Keep Databricks remote execution disabled.
+
+Please do the following:
+
+1. Preserve all completed security fixes.
+2. Do not enable any remote execution readiness flags.
+3. Keep the existing Local PySpark Runner available.
+4. Keep native notebook creation admin-only.
+5. Prepare a clear checklist of the remaining manual Databricks configuration.
+6. Identify the exact Service Principal permissions required.
+7. Explain how to verify Serverless Jobs API compatibility in my Free Edition workspace.
+8. Provide the exact backend environment variable names required, without displaying or exposing secret values.
+9. Once I complete the configuration, provide a safe live verification procedure.
+10. Do not deploy or enable learner execution without successful verification and my approval.
+
+Provide a final report separating completed work from pending configuration.
